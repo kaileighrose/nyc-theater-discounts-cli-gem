@@ -4,7 +4,7 @@ require 'pry'
 class NYCTheaterDiscounts::CLI
 
   def call
-    NYCTheaterDiscounts::Vendor.load_TodayTix
+    NYCTheaterDiscounts::Scraper.load_TodayTix
     puts "Hello theatre nerd! Here are the discount sources available:"
     list_vendors
     menu
