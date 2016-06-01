@@ -5,6 +5,7 @@ class NYCTheaterDiscounts::CLI
 
   def call
     NYCTheaterDiscounts::Scraper.load_TodayTix
+    NYCTheaterDiscounts::Scraper.load_Theatermania
     puts "Hello theater nerd! Here are the discount sources available:"
     list_vendors
     puts "Type 'exit' at any point to exit the program. Otherwise, type 'by vendor' or 'by show' to see today's deals."
@@ -35,7 +36,7 @@ class NYCTheaterDiscounts::CLI
   def list_deals(vendor)
     puts "to visit #{vendor.name} go to: #{vendor.url}"
     vendor.shows.each_with_index do |show, index|
-      puts "#{index+1}. #{show.name} -- available from: $#{show.price}"
+      puts "#{index+1}. #{show.name} -- available from: #{show.price}"
       puts "***for more information visit #{show.deal_url}***\n"
     end
   end

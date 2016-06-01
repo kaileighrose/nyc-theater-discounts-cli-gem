@@ -14,7 +14,7 @@ class NYCTheaterDiscounts::Scraper
 
       title = show.css('header span.title').text
       link = "http://www.todaytix.com/" + show['href']
-      price = show['data-min-price']
+      price = "$" show['data-min-price']
 
       if title.include?("Referral Program") != true && title.include?("Gift Cards") != true
         newshow = NYCTheaterDiscounts::Show.new(title, price, link)
@@ -25,6 +25,42 @@ class NYCTheaterDiscounts::Scraper
       ##href
       ##data-min-price **add $**
       ##header span.title
+    end
+  end
+
+  def self.load_Theatermania
+    deals_page = Nokogiri::HTML(open('http://www.theatermania.com/new-york-city-theater/discount-tickets/'))
+    
+    theatermania = NYCTheaterDiscounts::Vendor.new("Theatermania", "http://www.theatermania.com/new-york-city-theater/discount-tickets/")
+
+    deals_page.css("div#listings_right div#result div.list div.show.logo").each do |show|
+ 
+      title = show.css('a.show-title span.show-name').text
+      link = "http://www.theatermania.com/" + show.css('a.show-title')[0]['href']
+      price = show.css("div strong").text
+      
+      
+      newshow = NYCTheaterDiscounts::Show.new(title, price, link)
+      newshow.vendors << theatermania
+      theatermania.shows << newshow
+    end
+  end
+
+   def self.load_BroadwayBox
+    deals_page = Nokogiri::HTML(open('http://www.broadwaybox.com/shows/tickets/discounts/?v=b'))
+    
+    broadwaybox = NYCTheaterDiscounts::Vendor.new("BroadwayBox", "http://www.broadwaybox.com/shows/tickets/discounts/?v=b")
+
+    deals_page.css("div.list-group.list-quebec a.list-group-item").each do |show|
+ 
+      title = show.css('a.show-title span.show-name').text
+      link = "http://www.theatermania.com/" + show.css('a.show-title')[0]['href']
+      price = show.css("div strong").text
+      
+      
+      newshow = NYCTheaterDiscounts::Show.new(title, price, link)
+      newshow.vendors << broadwaybox
+      broadwaybox.shows << newshow
     end
   end
 end
