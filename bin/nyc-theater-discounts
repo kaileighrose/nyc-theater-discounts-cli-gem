@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require 'nyc-theater-discounts'
+
 require_relative '../config/environment'
 require_relative '../lib/nyc_theater_discounts.rb'
 
