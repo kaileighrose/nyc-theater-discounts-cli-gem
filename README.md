@@ -20,9 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-Type the following line into your terminal and then follow the prompts:
-
-    $ nyc-theater-discounts
+Run nyc-theater-discounts after installing the gem.
 
 ## Development
 
