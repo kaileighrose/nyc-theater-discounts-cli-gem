@@ -13,7 +13,7 @@ class NYCTheaterDiscounts::Scraper
     deals_page.css("div.shows_hero_container a.heroTile.grid").each do |show|
 
       title = show.css('header span.title').text
-      link = "http://www.todaytix.com/" + show['href']
+      link = "http://www.todaytix.com" + show['href']
       price = show['data-min-price']
       price = "$" + price.to_s
 
