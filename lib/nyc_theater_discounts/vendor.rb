@@ -7,28 +7,18 @@ class NYCTheaterDiscounts::Vendor
 
   @@all = []
 
-  def initialize(name, path)
-    @name = name
+  def initialize( vendor_name, path)
+    @name = vendor_name
     @url = path
     @shows = []
     @@all << self
   end
   
   def self.all
-     if @@all.uniq == @@all
-      @@all
-    else
-      @@all.uniq!
-    end
+    @@all
   end
 
   def shows
-    if @shows.uniq == @shows
-      @shows
-    else
-      @shows.uniq!
-    end
-    return @shows
+    @shows
   end
-
 end

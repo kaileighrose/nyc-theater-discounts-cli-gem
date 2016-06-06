@@ -7,29 +7,21 @@ class NYCTheaterDiscounts::Show
 
   @@all = []
 
-  def initialize(name, price, deal_url)
-    @name = name
-    @price = price
-    @deal_url = deal_url
+  def initialize(show_name, show_price, url)
+    @name = show_name
+    @price = show_price
+    @deal_url = url
     @vendors = []
     @@all << self
   end
+
   
   def self.all
-     if @@all.uniq == @@all
-      @@all
-    else
-      @@all.uniq!
-    end
+    @@all
   end
 
   def vendors
-    if @vendors.uniq == @vendors
-      @vendors
-    else
-      @vendors.uniq!
-    end
-    return @vendors
+    @vendors
   end
 
   def find_by_name(nameval)

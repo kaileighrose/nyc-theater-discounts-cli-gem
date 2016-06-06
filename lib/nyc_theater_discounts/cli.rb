@@ -4,10 +4,11 @@ require 'pry'
 class NYCTheaterDiscounts::CLI
 
   def call
+    puts "*** Loading Deals ***"
     NYCTheaterDiscounts::Scraper.load_TodayTix
     NYCTheaterDiscounts::Scraper.load_Theatermania
     NYCTheaterDiscounts::Scraper.load_BroadwayBox
-    puts "Hello theater nerd! Here are the discount sources available:"
+    puts "Hello theater nerd! Here are the discount sources available today:"
     list_vendors
     puts "To see a list of deals for each vendor type the number of the vendor. To search by show type 'by show'. To quit, type 'exit'."
     starting_menu

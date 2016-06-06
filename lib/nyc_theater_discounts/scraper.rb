@@ -37,7 +37,7 @@ class NYCTheaterDiscounts::Scraper
     deals_page.css("div#listings_right div#result div.list div.show.logo").each do |show|
  
       title = show.css('a.show-title span.show-name').text
-      link = "http://www.theatermania.com/" + show.css('a.show-title')[0]['href']
+      link = "http://www.theatermania.com" + show.css('a.show-title')[0]['href']
       price = show.css("div strong").text
       
       newshow = NYCTheaterDiscounts::Show.new(title, price, link)
