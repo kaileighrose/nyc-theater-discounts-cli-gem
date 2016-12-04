@@ -1,21 +1,21 @@
 require 'nokogiri'
 require 'open-uri'
+require 'open_uri_redirections'
 require 'pry'
 
 class NYCTheaterDiscounts::Scraper
   attr_accessor :name, :url, :shows, :lowest_price
 
-  def self.load_TodayTix
-    deals_page = Nokogiri::HTML(open('http://www.todaytix.com/us/nyc/shows/'))
+  def self.load_TodayTix 
+    deals_page = Nokogiri::HTML(open('http://www.todaytix.com/shows/nyc', :allow_redirections => :safe))
     
-    todaytix = NYCTheaterDiscounts::Vendor.new("TodayTix", "http://www.todaytix.com/us/nyc/shows/")
-
-    deals_page.css("div.shows_hero_container a.heroTile.grid").each do |show|
-
-      title = show.css('header span.title').text
+    todaytix = NYCTheaterDiscounts::Vendor.new("TodayTix", "http://www.todaytix.com/shows/nyc")
+    
+    deals_page.css("div.shows-list__showContainer___6xuFJ div.grid__row___I3zMc a.hero-grid__showCell___21gi2").each do |show|
+      
+      title = show.css('.hero-info-title__title___3BMC9').text
       link = "http://www.todaytix.com" + show['href']
-      price = show['data-min-price']
-      price = "$" + price.to_s
+      price = show.css('.hero-info-action__price___3ZG8A').text
 
       if title.include?("Referral Program") != true && title.include?("Gift Cards") != true
         newshow = NYCTheaterDiscounts::Show.new(title, price, link)
