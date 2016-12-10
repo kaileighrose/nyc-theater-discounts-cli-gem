@@ -11,21 +11,19 @@ class NYCTheaterDiscounts::Scraper
     
     todaytix = NYCTheaterDiscounts::Vendor.new("TodayTix", "http://www.todaytix.com/shows/nyc")
     
-    deals_page.css("div.shows-list__showContainer___6xuFJ div.grid__row___I3zMc a.hero-grid__showCell___21gi2").each do |show|
+    deals_page.css("div.I3zMcHNtRg div._21gi2wD4sz._1f5fyaMPhI.vn2NosAHjv._8jlYkaoq2i").each do |show|
       
-      title = show.css('.hero-info-title__title___3BMC9').text
-      link = "http://www.todaytix.com" + show['href']
-      price = show.css('.hero-info-action__price___3ZG8A').text
-
-      if title.include?("Referral Program") != true && title.include?("Gift Cards") != true
+      title = show.css('._3BMC9wgoBo').text
+      price = show.css('._3ZG8APBefO').text
+      step = show.css('a')
+      link = "http://www.todaytix.com" + step[0]['href']
+      
+      
+      if title.include?("The Public Theater") != true && title.include?("Weekend Getaway") != true && title.include?("Referral Program") != true && price.include?("$")
         newshow = NYCTheaterDiscounts::Show.new(title, price, link)
         newshow.vendors << todaytix
         todaytix.shows << newshow
       end
-      ##div.shows_hero_container a.heroTile.grid
-      ##href
-      ##data-min-price **add $**
-      ##header span.title
     end
   end
 
